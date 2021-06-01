@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KotlinExample10</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="hello_string">Email: %1s</string>
+    <string name="login">Login</string>
+    <string name="accept_agreements">accept agreements</string>
+</resources>
