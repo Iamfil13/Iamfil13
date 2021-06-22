@@ -50,13 +50,13 @@ class MainActivity : AppCompatActivity() {
 
             @SuppressLint("SetTextI18n")
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                findViewById<TextView>(R.id.textView).text = "Search expanded"
+                findViewById<TextView>(R.id.textView).text = "Search expanded "
                 return true
             }
 
             @SuppressLint("SetTextI18n")
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                findViewById<TextView>(R.id.textView).text = "Search collapsed"
+                findViewById<TextView>(R.id.textView).text = "Search collapsed "
                 return true
             }
 
