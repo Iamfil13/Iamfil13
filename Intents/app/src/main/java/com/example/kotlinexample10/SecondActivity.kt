@@ -7,11 +7,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.second_activity.*
 
 
 class SecondActivity : AppCompatActivity(R.layout.second_activity) {
@@ -21,8 +21,9 @@ class SecondActivity : AppCompatActivity(R.layout.second_activity) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_activity)
 
-        buttonCall.setOnClickListener {
-            val phoneNumber = phoneNumber.text.toString()
+
+        findViewById<TextView>(R.id.buttonCall).setOnClickListener {
+            val phoneNumber = findViewById<TextView>(R.id.phoneNumber).text.toString()
             val isPhoneValid = Patterns.PHONE.matcher(phoneNumber).matches()
 
             val isPhonePermission = ContextCompat.checkSelfPermission(

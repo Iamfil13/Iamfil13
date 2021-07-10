@@ -1,8 +1,9 @@
 package com.example.kotlinexample10
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_course.*
+
 
 class CourseActivity: AppCompatActivity(R.layout.activity_course) {
 
@@ -13,7 +14,7 @@ class CourseActivity: AppCompatActivity(R.layout.activity_course) {
 
     private fun intentData(){
         intent.data?.lastPathSegment?.let { courseTest->
-            courseTestTextView.text = courseTest
+            findViewById<TextView>(R.id.courseTestTextView).text = courseTest
         }
     }
 }

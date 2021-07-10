@@ -5,32 +5,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private var login: FormState = FormState(false, "Enter login")
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
 
         if (savedInstanceState != null) {
             login = savedInstanceState.getParcelable(KEY_LOGIN) ?: error("Error")
         }
 
+        val textView = findViewById<TextView>(R.id.textView)
         textView.text = login.message
+
+        val button = findViewById<Button>(R.id.button)
         button.isEnabled = login.valid
 
-        anr.setOnClickListener {
-            Thread.sleep(10000)
-        }
+        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+
 
         checkBox.setOnClickListener {
             login.valid = loginCorrect()

@@ -73,11 +73,5 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/anr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="18dp"
-        android:text="@string/anr" />
 
 </LinearLayout>
