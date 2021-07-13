@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">KotlinExample10</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="hello_string">Email: %1s</string>
+    <string name="login">Login</string>
+    <string name="accept_agreements">accept agreements</string>
+    <string name="anr">ANR</string>
+    <string name="Enter_phone_number">Enter phone number</string>
+    <string name="call">Call</string>
+    <string name="phone_number">phone number</string>
+    <string name="page">Page:</string>
+    <string name="course_test">Course test</string>
+    <string name="Enter">enter</string>
+</resources>
