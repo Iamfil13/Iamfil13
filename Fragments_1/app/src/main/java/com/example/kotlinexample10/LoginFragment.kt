@@ -24,7 +24,7 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
         textView.text = login.message
 
         val button = requireView().findViewById<Button>(R.id.button)
-        button.isEnabled = login.valid
+        button.isEnabled = true//login.valid
 
         val checkBox = requireView().findViewById<CheckBox>(R.id.checkBox)
         val progressBar = requireView().findViewById<ProgressBar>(R.id.progressBar)
@@ -35,22 +35,22 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
         }
 
         button.setOnClickListener {
-            if (loginCorrect()) {
+            //if (loginCorrect()) {
                 progressBar.visibility = View.VISIBLE
                 Handler().postDelayed({
                     progressBar.visibility = View.INVISIBLE
                     login.message = "Login correct"
 
                     (activity as MainActivity).supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MainFragment())
+                        .replace(R.id.container, ListFragment())
                         .commit()
                     Toast.makeText(activity, "login ending", Toast.LENGTH_SHORT).show()
-                }, 2000)
+                }, 2)
 
-            } else {
-                login.message = "Login incorrect"
-                textView.text = login.message
-            }
+//            } else {
+//                login.message = "Login incorrect"
+//                textView.text = login.message
+//            }
         }
     }
 
