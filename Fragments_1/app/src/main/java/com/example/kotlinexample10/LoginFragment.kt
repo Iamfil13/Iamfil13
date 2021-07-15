@@ -1,12 +1,9 @@
 package com.example.kotlinexample10
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 
@@ -35,22 +32,22 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
         }
 
         button.setOnClickListener {
-            //if (loginCorrect()) {
+            if (loginCorrect()) {
                 progressBar.visibility = View.VISIBLE
                 Handler().postDelayed({
                     progressBar.visibility = View.INVISIBLE
                     login.message = "Login correct"
 
                     (activity as MainActivity).supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, ListFragment())
+                        .replace(R.id.container, MainFragment())
                         .commit()
                     Toast.makeText(activity, "login ending", Toast.LENGTH_SHORT).show()
-                }, 2)
+                }, 2000)
 
-//            } else {
-//                login.message = "Login incorrect"
-//                textView.text = login.message
-//            }
+            } else {
+                login.message = "Login incorrect"
+                textView.text = login.message
+            }
         }
     }
 

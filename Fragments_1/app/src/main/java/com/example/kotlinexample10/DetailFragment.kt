@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,6 +26,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onActivityCreated(savedInstanceState)
         val textDetail = requireView().findViewById<TextView>(R.id.textDetail)
         textDetail.text = requireArguments().getString(KEY_TEXT)
+
     }
 
     companion object {
