@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         buttonFragment.setOnClickListener {
             showFragment()
         }
-
     }
 
     private fun showFragment() {
