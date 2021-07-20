@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
-    private val itemSelectListener: ItemSelectListener?
-        get() = activity?.let { it as ItemSelectListener }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -25,7 +23,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun onButtonClick(buttonText: String) {
-        itemSelectListener?.onItemSelect(buttonText)
+        (parentFragment as ItemSelectListener).onItemSelect(buttonText)
     }
 
 }

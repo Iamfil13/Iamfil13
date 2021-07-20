@@ -2,6 +2,7 @@ package com.example.kotlinexample10
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFragment() {
-
         val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
 
         if (!alreadyHasFragment) {
@@ -28,6 +28,17 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             Toast.makeText(this, "Fragment is shown", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (findViewById<TextView>(R.id.textDetail) != null) {
+            //supportFragmentManager.popBackStack("text", 0)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment())
+                .commit()
+        } else {
+            super.onBackPressed()
         }
     }
 

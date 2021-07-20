@@ -1,7 +1,6 @@
 package com.example.kotlinexample10
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -14,12 +13,14 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
     @SuppressLint("SetTextI18n")
     private var login: FormState = FormState(false, "Enter login")
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
 
         val textView = requireView().findViewById<TextView>(R.id.textView)
         textView.text = login.message
+
 
         val button = requireView().findViewById<Button>(R.id.button)
         button.isEnabled = login.valid
@@ -38,7 +39,13 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
                 Handler().postDelayed({
                     progressBar.visibility = View.INVISIBLE
                     login.message = "Login correct"
-                    startActivity(Intent(context, MainFragment::class.java))
+
+                    (activity as MainActivity).findViewById<TextView>(R.id.loginId).text =
+                        "Welcome: " + requireView().findViewById<EditText>(R.id.editTextMail).text.toString()
+
+                    (activity as MainActivity).supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MainFragment())
+                        .commit()
                     Toast.makeText(activity, "login ending", Toast.LENGTH_SHORT).show()
                 }, 2)
             } else {

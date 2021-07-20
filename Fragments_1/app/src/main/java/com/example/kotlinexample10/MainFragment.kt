@@ -1,23 +1,17 @@
 package com.example.kotlinexample10
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
-class MainFragment : AppCompatActivity(R.layout.fragment_main), ItemSelectListener {
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        supportFragmentManager.findFragmentById(R.id.container)?.onDestroy()
-    }
+class MainFragment : Fragment(R.layout.fragment_main), ItemSelectListener {
 
     override fun onItemSelect(text: String) {
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container2, DetailFragment.newInstance(text))
-            .addToBackStack(text)
-            .commit()
+        val transaction = requireFragmentManager().beginTransaction()
+//        if (requireView().findViewById<TextView>(R.id.textDetail) == null) {
+//            transaction.addToBackStack("text")
+//        }
+        transaction.replace(R.id.container2, DetailFragment.newInstance(text))
+        transaction.commit()
     }
-
 
 }
