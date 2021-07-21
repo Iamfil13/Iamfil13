@@ -3,6 +3,7 @@ package com.example.kotlinexample10
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -23,7 +24,7 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
 
 
         val button = requireView().findViewById<Button>(R.id.button)
-        button.isEnabled = login.valid
+        button.isEnabled = true //login.valid
 
         val checkBox = requireView().findViewById<CheckBox>(R.id.checkBox)
         val progressBar = requireView().findViewById<ProgressBar>(R.id.progressBar)
@@ -34,7 +35,7 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
         }
 
         button.setOnClickListener {
-            if (loginCorrect()) {
+            //if (loginCorrect()) {
                 progressBar.visibility = View.VISIBLE
                 Handler().postDelayed({
                     progressBar.visibility = View.INVISIBLE
@@ -48,10 +49,10 @@ class LoginFragment : Fragment(R.layout.activity_login_fragment) {
                         .commit()
                     Toast.makeText(activity, "login ending", Toast.LENGTH_SHORT).show()
                 }, 2)
-            } else {
-                login.message = "Login incorrect"
-                textView.text = login.message
-            }
+//            } else {
+//                login.message = "Login incorrect"
+//                textView.text = login.message
+//            }
         }
     }
 

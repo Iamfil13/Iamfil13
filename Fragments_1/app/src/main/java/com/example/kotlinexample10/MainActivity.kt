@@ -1,6 +1,7 @@
 package com.example.kotlinexample10
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -32,13 +33,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (findViewById<TextView>(R.id.textDetail) != null) {
-            //supportFragmentManager.popBackStack("text", 0)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment())
-                .commit()
-        } else {
+        val count = supportFragmentManager.backStackEntryCount
+
+        if (count == 0) {
             super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
         }
     }
 
