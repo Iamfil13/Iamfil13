@@ -2,9 +2,13 @@ package com.example.kotlinexample15
 
 import android.os.Bundle
 import android.widget.Button
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = adapter
         showTabLayout()
 
-        
+
         viewPager.setPageTransformer { page, position ->
             when {
                 position < -1 || position > 1 -> {
@@ -72,8 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.showDialog).setOnClickListener {
-            showSelectAnArticle()
-            findViewById<Button>(R.id.showDialog).isEnabled = false
+            showDialogFragment()
         }
 
     }
@@ -96,36 +99,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showSelectAnArticle() {
+    private fun showDialogFragment(){
+        ConfirmationDialogFragment()
 
-        val articleType = arrayOf("Business", "Sports", "Medicine", "Android", "Science", "Culture")
-        val screensSelect = mutableListOf<OnboardScreen>()
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+            .show(supportFragmentManager, "confirmationTag")
+    }
 
-        dialog = AlertDialog.Builder(this)
-            .setTitle("Select an article")
-            .setMultiChoiceItems(
-                articleType, null
-            ) { _, which, isChecked ->
-                if (isChecked) {
-                    screensSelect.add(screens[which])
-                } else if (screensSelect.contains(screens[which])) {
-                    screensSelect.remove(screens[which])
-                }
-            }
-            .setPositiveButton("Select") { _, _ ->
-                screens = screensSelect
-                viewPager.adapter = OnboardAdapter(screens, this)
-                showTabLayout()
-
-            }
-            .show()
+    private fun hideDialog() {
+        supportFragmentManager.findFragmentByTag("confirmationTag")
+            ?.let { it as ConfirmationDialogFragment }
+            ?.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         dialog?.dismiss()
     }
+
+    
 
 //  tabLayout.getTabAt(1)?.orCreateBadge?.apply {
 //            number = 2
