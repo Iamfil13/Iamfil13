@@ -2,13 +2,8 @@ package com.example.kotlinexample15
 
 import android.os.Bundle
 import android.widget.Button
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -49,31 +44,36 @@ class MainActivity : AppCompatActivity() {
 
     )
 
+    private val selectScreen = arrayOf(
+        "Business",
+        "Sports",
+        "Medicine",
+        "Android",
+        "Science",
+        "Culture"
+    )
+
+    private var selectBooleanScreen: BooleanArray = booleanArrayOf(
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+    )
+
     private var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        val adapter = OnboardAdapter(screens, this)
-        viewPager.adapter = adapter
-        showTabLayout()
-
-
-        viewPager.setPageTransformer { page, position ->
-            when {
-                position < -1 || position > 1 -> {
-                    page.alpha = 0F
-                }
-                position <= 0 -> {
-                    page.alpha = 1 + position
-                }
-                position <= 1 -> {
-                    page.alpha = 1 - position
-                }
-            }
+        if (savedInstanceState != null) {
+            selectBooleanScreen = savedInstanceState.getBooleanArray(KEY_SCREENS) ?: error("Error")
         }
+
+        showTabLayout()
 
         findViewById<Button>(R.id.showDialog).setOnClickListener {
             showDialogFragment()
@@ -85,24 +85,38 @@ class MainActivity : AppCompatActivity() {
     private fun showTabLayout() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val adapter = OnboardAdapter(screens, this)
+        viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (screens[position]) {
-                screens[0] -> tab.setIcon(screens[0].drawableRes).text = "Business"
-                screens[1] -> tab.setIcon(screens[1].drawableRes).text = "Sports"
-                screens[2] -> tab.setIcon(screens[2].drawableRes).text = "Medicine"
-                screens[3] -> tab.setIcon(screens[3].drawableRes).text = "Android"
-                screens[4] -> tab.setIcon(screens[4].drawableRes).text = "Science"
-                screens[5] -> tab.setIcon(screens[5].drawableRes).text = "Culture"
+            if (selectBooleanScreen[position]) {
+                when (screens[position]) {
+                    screens[position] ->
+                        tab.setIcon(screens[position].drawableRes).text =
+                            selectScreen[position]
+                }
             }
         }.attach()
-
     }
 
-    private fun showDialogFragment(){
-        ConfirmationDialogFragment()
 
-            .show(supportFragmentManager, "confirmationTag")
+    private fun showDialogFragment() {
+
+        AlertDialog.Builder(this)
+            .setTitle("Article type")
+            .setMultiChoiceItems(
+                selectScreen, selectBooleanScreen
+            ) { _, which, isChecked ->
+                selectBooleanScreen[which] = isChecked
+            }
+            .setPositiveButton("Select") { _, _ ->
+                showTabLayout()
+            }
+            .show()
+
+//        ConfirmationDialogFragment()
+//            .show(supportFragmentManager, "confirmationTag")
+
     }
 
     private fun hideDialog() {
@@ -116,18 +130,14 @@ class MainActivity : AppCompatActivity() {
         dialog?.dismiss()
     }
 
-    
+    companion object {
+        internal const val KEY_SCREENS = "counter"
+    }
 
-//  tabLayout.getTabAt(1)?.orCreateBadge?.apply {
-//            number = 2
-//            badgeGravity = BadgeDrawable.TOP_END
-//        }
-//
-//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                tabLayout.getTabAt(position)?.removeBadge()
-//
-//            }
-//        })
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBooleanArray(KEY_SCREENS, selectBooleanScreen)
+    }
+
+
 }
