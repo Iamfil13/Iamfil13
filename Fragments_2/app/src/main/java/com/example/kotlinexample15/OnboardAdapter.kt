@@ -7,7 +7,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class OnboardAdapter(
     private val screens: List<OnboardScreen>,
 
-    activity: FragmentActivity): FragmentStateAdapter(activity) {
+    activity: FragmentActivity
+) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return screens.size
     }
@@ -18,7 +19,8 @@ class OnboardAdapter(
 
             textRes = screen.textRes,
             bgColorRes = screen.bgColorRes,
-            drawableRes = screen.drawableRes
+            drawableRes = screen.drawableRes,
+            tag = screen.tag
         )
     }
 }

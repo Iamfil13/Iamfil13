@@ -6,33 +6,48 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 
 
-
-class ConfirmationDialogFragment: DialogFragment() {
+class ConfirmationDialogFragment : DialogFragment() {
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val articleType = arrayOf("Business", "Sports", "Medicine", "Android", "Science", "Culture")
+        val onClick = activity as OnClickPositiveButton
+        val tags = arrayOf("Business", "Sports", "Medicine", "Android", "Science", "Culture")
+        val checkedItemsForDialog: BooleanArray =
+            requireArguments().getBooleanArray(KEY_SCREENS) ?: error("Error")
+
+        val checkedItems = booleanArrayOf(false, false, false, false, false, false)
+        for (i in checkedItemsForDialog.indices) {
+            checkedItems[i] = checkedItemsForDialog[i]
+        }
 
 
         return AlertDialog.Builder(requireContext())
-            .setTitle("Select an article")
-            .setMultiChoiceItems(
-                articleType, null
-            ) { _, which, isChecked ->
-                if (isChecked) {
-
-                } else  {
-
-                }
+            .setTitle("Article type")
+            .setMultiChoiceItems(tags, checkedItems) { _, which, isChecked ->
+                checkedItems[which] = isChecked
             }
             .setPositiveButton("Select") { _, _ ->
-
+                onClick.onClickSelect(checkedItems)
             }
-            .show()
+            .create()
+
+
     }
 
+    companion object {
 
+        private const val KEY_SCREENS = "checked items key"
+
+        fun newInstance(
+            checkedItems: BooleanArray
+        ): ConfirmationDialogFragment {
+            return ConfirmationDialogFragment().withArguments {
+                putBooleanArray(KEY_SCREENS, checkedItems)
+            }
+        }
+
+    }
 
 
 }

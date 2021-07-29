@@ -7,6 +7,8 @@ import androidx.annotation.StringRes
 data class OnboardScreen(
     @StringRes val textRes: Int,
     @ColorRes val bgColorRes: Int,
-    @DrawableRes val drawableRes: Int
+    @DrawableRes val drawableRes: Int,
+    val tag: String
 ) {
+
 }
