@@ -1,6 +1,7 @@
 package com.example.kotlinexample16
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -13,7 +14,7 @@ class BeastAdapter(
     private val onItemClicked: (position: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var beasts: List<Beast> = emptyList()
+    private var beasts: Array<Parcelable> = emptyArray()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -27,6 +28,7 @@ class BeastAdapter(
         return when (beasts[position]) {
             is Beast.Predator -> TYPE_PREDATOR
             is Beast.Animals -> TYPE_ANIMAL
+            else -> error("Incorrect position $position")
         }
     }
 
@@ -50,7 +52,7 @@ class BeastAdapter(
 
     override fun getItemCount(): Int = beasts.size
 
-    fun updateBeasts(newBeast: List<Beast>) {
+    fun updateBeasts(newBeast: Array<Parcelable>) {
         beasts = newBeast
     }
 

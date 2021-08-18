@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Example 16</string>
+    <string name="list_is_empty">The list is empty, add an animal.</string>
 </resources>
